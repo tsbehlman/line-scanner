@@ -1,0 +1,8 @@
+{
+  "name": "line-scanner",
+  "version": "1.0.0",
+  "description": "Small, fast, ES6-iterable module for extracting lines from text",
+  "main": "index.js",
+  "author": "Trevor Behlman",
+  "license": "MIT"
+}
