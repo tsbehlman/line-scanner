@@ -1,14 +1,15 @@
 let LineScanner = require( "../index" );
 
 function verify( lines, delimeter ) {
-	let scanner = new LineScanner( lines.join( delimeter ) );
+	let scanner = new LineScanner( Buffer.from( lines.join( delimeter ) ) );
 	let iteratorResult = scanner[Symbol.iterator]().next();
 	for( let line of lines ) {
-		expect( iteratorResult.value ).toBe( line );
+		expect( iteratorResult.value.toString() ).toBe( line );
 		expect( iteratorResult.done ).toBe( false );
 		iteratorResult = iteratorResult.next();
 	}
 	expect( iteratorResult.done ).toBe( true );
+	expect( iteratorResult.value ).toBe( undefined );
 }
 
 function verifyLines( lines ) {
