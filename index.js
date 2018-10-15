@@ -6,11 +6,18 @@ class LineScanner {
 	}
 	
 	next() {
-		let startIndex = this.index;
+		if( this.index >= this.length ) {
+			return {
+				value: undefined,
+				done: true
+			};
+		}
+		
+		const startIndex = this.index;
 		let endIndex = this.length;
 		
 		while( this.index < this.length ) {
-			let charCode = this.string.charCodeAt( this.index++ );
+			const charCode = this.string.charCodeAt( this.index++ );
 			
 			if( charCode === 10 ) {
 				endIndex = this.index - 1;
@@ -23,25 +30,14 @@ class LineScanner {
 			}
 		}
 		
-		return this.string.substring( startIndex, endIndex );
-	}
-	
-	hasNext() {
-		return this.index < this.length;
-	}
-	
-	[Symbol.iterator]() {
-		let nestedNext = () => {
-			let done = !this.hasNext();
-			return {
-				value: done ? undefined : this.next(),
-				next: nestedNext,
-				done: done
-			};
-		};
 		return {
-			next: nestedNext
+			value: this.string.substring( startIndex, endIndex ),
+			done: false
 		};
+	}
+	
+	[ Symbol.iterator ]() {
+		return this;
 	}
 }
 

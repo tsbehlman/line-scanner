@@ -1,12 +1,13 @@
-let LineScanner = require( "../index" );
+const LineScanner = require( "../index" );
 
 function verify( lines, delimeter ) {
-	let scanner = new LineScanner( lines.join( delimeter ) );
-	let iteratorResult = scanner[Symbol.iterator]().next();
-	for( let line of lines ) {
+	const scanner = new LineScanner( lines.join( delimeter ) );
+	const iterator = scanner[ Symbol.iterator ]();
+	let iteratorResult = iterator.next();
+	for( const line of lines ) {
 		expect( iteratorResult.value ).toBe( line );
 		expect( iteratorResult.done ).toBe( false );
-		iteratorResult = iteratorResult.next();
+		iteratorResult = iterator.next();
 	}
 	expect( iteratorResult.done ).toBe( true );
 	expect( iteratorResult.value ).toBe( undefined );
@@ -22,7 +23,7 @@ function verifyCarriageReturns( lines ) {
 
 describe( "LineScanner", () => {
 	it( "initializes", () => {
-		let scanner = new LineScanner( "" );
+		new LineScanner( "" );
 	} );
 	
 	it( "implements iterator method", () => {
