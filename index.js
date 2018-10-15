@@ -10,7 +10,7 @@ class LineScanner {
 		let endIndex = this.length;
 		
 		while( this.index < this.length ) {
-			let charCode = this.string[ this.index++ ];
+			let charCode = this.string.charCodeAt( this.index++ );
 			
 			if( charCode === 10 ) {
 				endIndex = this.index - 1;
@@ -23,7 +23,7 @@ class LineScanner {
 			}
 		}
 		
-		return this.string.utf8Slice( startIndex, endIndex );
+		return this.string.substring( startIndex, endIndex );
 	}
 	
 	hasNext() {
